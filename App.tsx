@@ -1,118 +1,89 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import Liked from './tinder/Liked';
+import Example from './tinder/Example';
+import {LikedContextProvider} from './tinder/LikedContextProvider';
+import Icon from 'react-native-ionicons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+// import Onyx from 'react-native-onyx';
+// import ONYXKEYS from './ONYXKEYS';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// const config = {
+//   keys: ONYXKEYS,
+// };
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+// Onyx.init(config);
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+export type RootStackParamList = {
+  Home: undefined;
+  Liked: undefined;
+  SwipeScreen: undefined;
+  CardScreen: undefined;
+  ViceTinder: undefined;
+  Example: undefined;
+};
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+export type RootLabParamList = {
+  Example: undefined;
+  Liked: undefined;
+};
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+function App() {
+  // const Stack = createNativeStackNavigator<RootStackParamList>();
+  const Tab = createBottomTabNavigator();
+  // const Stack = createNativeStackNavigator();
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <LikedContextProvider>
+      <NavigationContainer>
+        <Tab.Navigator
+          screenOptions={({route}) => ({
+            headerShown: false,
+            tabBarStyle: {
+              height: 50,
+              position: 'absolute',
+              bottom: 30,
+              left: 40,
+              right: 40,
+              paddingBottom: 5,
+              paddingTop: 5,
+              borderRadius: 20,
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 5,
+              },
+              shadowOpacity: 0.4,
+              shadowRadius: 6,
+            },
+            tabBarIcon: ({color, size}) => {
+              let iconName;
+
+              if (route.name === 'Liked') {
+                iconName = 'heart';
+              } else {
+                iconName = 'images';
+              }
+
+              // You can return any component that you like here!
+              return (
+                <Icon
+                  name={iconName}
+                  size={size}
+                  color={color}
+                  // style={{marginTop: 2}}
+                />
+              );
+            },
+            tabBarActiveTintColor: '#3ee038',
+            tabBarInactiveTintColor: 'gray',
+          })}>
+          <Tab.Screen name="Find" component={Example} />
+          <Tab.Screen name="Liked" component={Liked} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </LikedContextProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
