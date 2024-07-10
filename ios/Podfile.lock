@@ -888,9 +888,9 @@ PODS:
     - React-debug
   - react-native-ionicons (4.6.5):
     - React
-  - react-native-quick-sqlite (8.1.0):
-    - glog
-    - RCT-Folly (= 2022.05.16.00)
+  - react-native-quick-sqlite (4.0.8):
+    - React
+    - React-callinvoker
     - React-Core
   - react-native-safe-area-context (4.10.7):
     - React-Core
@@ -1061,6 +1061,8 @@ PODS:
     - React-jsi (= 0.73.4)
     - React-logger (= 0.73.4)
     - React-perflogger (= 0.73.4)
+  - RNDeviceInfo (11.1.0):
+    - React-Core
   - RNGestureHandler (2.17.1):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1136,6 +1138,7 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
+  - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
@@ -1250,6 +1253,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
+  RNDeviceInfo:
+    :path: "../node_modules/react-native-device-info"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNReanimated:
@@ -1292,7 +1297,7 @@ SPEC CHECKSUMS:
   React-logger: 0a57b68dd2aec7ff738195f081f0520724b35dab
   React-Mapbuffer: 63913773ed7f96b814a2521e13e6d010282096ad
   react-native-ionicons: 7ce04a8e61c6de2fc3b6798e8b9621b865cb18b1
-  react-native-quick-sqlite: fe950aa9bd36fc68b84b02699ed039175aec04f4
+  react-native-quick-sqlite: 0a76bbe373881e73f0f783aa6db6285982e0d52d
   react-native-safe-area-context: 422017db8bcabbada9ad607d010996c56713234c
   React-nativeconfig: d7af5bae6da70fa15ce44f045621cf99ed24087c
   React-NativeModulesApple: 0123905d5699853ac68519607555a9a4f5c7b3ac
@@ -1314,6 +1319,7 @@ SPEC CHECKSUMS:
   React-runtimescheduler: ed48e5faac6751e66ee1261c4bd01643b436f112
   React-utils: 6e5ad394416482ae21831050928ae27348f83487
   ReactCommon: 840a955d37b7f3358554d819446bffcf624b2522
+  RNDeviceInfo: b899ce37a403a4dea52b7cb85e16e49c04a5b88e
   RNGestureHandler: 1c2341f8a84794a483ed739c446dc9f3b5191908
   RNReanimated: 2fb8bf314df48f4968d9080aec46c47eb44a446a
   RNScreens: f0edd01b3ab160acc31fb056622a1d7c2909a0a5

@@ -5,14 +5,15 @@ import Example from './tinder/Example';
 import {LikedContextProvider} from './tinder/LikedContextProvider';
 import Icon from 'react-native-ionicons';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-// import Onyx from 'react-native-onyx';
-// import ONYXKEYS from './ONYXKEYS';
+import Onyx from 'react-native-onyx';
+import ONYXKEYS from './ONYXKEYS';
 
-// const config = {
-//   keys: ONYXKEYS,
-// };
+const config = {
+  keys: ONYXKEYS,
+};
 
-// Onyx.init(config);
+Onyx.init(config);
+Onyx.set(ONYXKEYS.LIKED_POKEMONS, {pokemons: []});
 
 export type RootStackParamList = {
   Home: undefined;
@@ -28,11 +29,32 @@ export type RootLabParamList = {
   Liked: undefined;
 };
 
+const tabBarIcon =
+  (route: {name: string}) =>
+  ({color, size}: {color: string; size: number}) => {
+    let iconName;
+
+    if (route.name === 'Liked') {
+      iconName = 'heart';
+    } else {
+      iconName = 'images';
+    }
+
+    // You can return any component that you like here!
+    return (
+      <Icon
+        name={iconName}
+        size={size}
+        color={color}
+        // style={{marginTop: 2}}
+      />
+    );
+  };
+
 function App() {
   // const Stack = createNativeStackNavigator<RootStackParamList>();
   const Tab = createBottomTabNavigator();
   // const Stack = createNativeStackNavigator();
-
   return (
     <LikedContextProvider>
       <NavigationContainer>
@@ -56,25 +78,7 @@ function App() {
               shadowOpacity: 0.4,
               shadowRadius: 6,
             },
-            tabBarIcon: ({color, size}) => {
-              let iconName;
-
-              if (route.name === 'Liked') {
-                iconName = 'heart';
-              } else {
-                iconName = 'images';
-              }
-
-              // You can return any component that you like here!
-              return (
-                <Icon
-                  name={iconName}
-                  size={size}
-                  color={color}
-                  // style={{marginTop: 2}}
-                />
-              );
-            },
+            tabBarIcon: tabBarIcon(route),
             tabBarActiveTintColor: '#3ee038',
             tabBarInactiveTintColor: 'gray',
           })}>

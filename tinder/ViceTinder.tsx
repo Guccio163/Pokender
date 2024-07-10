@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {View, ViewStyle} from 'react-native';
+import {StyleSheet, View, ViewStyle} from 'react-native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {
   runOnJS,
@@ -54,7 +54,7 @@ export default function ViceTinder<T>({
   }, [data, activeIndexState]);
 
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
+    <GestureHandlerRootView style={styles.rootView}>
       <View style={style}>
         {visibleItems.map((item, index) => (
           <TinderItem
@@ -72,3 +72,7 @@ export default function ViceTinder<T>({
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  rootView: {flex: 1},
+});

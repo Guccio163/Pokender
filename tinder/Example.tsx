@@ -9,7 +9,8 @@ import {
   View,
 } from 'react-native';
 import ViceTinder from './ViceTinder';
-import {useLiked} from './LikedContextProvider';
+import ONYXKEYS from '../ONYXKEYS';
+import Onyx, {useOnyx} from 'react-native-onyx';
 
 export type Pokemon = {
   id: string;
@@ -26,7 +27,11 @@ export default function Example() {
 
   const [offset, setOffset] = useState(0);
   const limit = 5;
-  const {setLiked} = useLiked();
+  const [liked] = useOnyx(ONYXKEYS.LIKED_POKEMONS);
+
+  useEffect(() => {
+    console.log(liked ? liked.pokemons : null);
+  }, [liked]);
 
   const nextSource = useMemo(() => {
     return `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
@@ -95,7 +100,13 @@ export default function Example() {
         onChange={index => {
           setActiveIndex(index);
         }}
-        likeItem={_arg => setLiked(l => [...l, pokemons[_arg]])}
+        // likeItem={_arg => setLiked(l => [...l, pokemons[_arg]])}
+        likeItem={_arg => {
+          let poks: Pokemon[] = liked?.pokemons;
+          Onyx.merge(ONYXKEYS.LIKED_POKEMONS, {
+            pokemons: [...poks, pokemons[_arg]],
+          });
+        }}
         renderItem={({item}) => (
           <View style={styles.card}>
             <Image
